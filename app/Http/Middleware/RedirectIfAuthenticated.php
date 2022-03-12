@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        // $guards = empty($guards) ? [null] : $guards;
 
         // foreach ($guards as $guard) {
         //     if (Auth::guard($guard)->check()) {
@@ -31,11 +31,15 @@ class RedirectIfAuthenticated
         //     }
         // }
 
-        if(Auth::guard(self::GUARD_USER)->check() && $request->routeIs('user.')){
+        if(Auth::guard(self::GUARD_USER)->check() && $request->routeIs('user.*')){
             return redirect(RouteServiceProvider::HOME);
-        } elseif(Auth::guard(self::GUARD_OWNER)->check() && $request->routeIs('owner.')){
+
+        }
+        if(Auth::guard(self::GUARD_OWNER)->check() && $request->routeIs('owner.*')){
             return redirect(RouteServiceProvider::OWNER_HOME);
-        } elseif(Auth::guard(self::GUARD_ADMIN)->check() && $request->routeIs('admin.')){
+
+        }
+        if(Auth::guard(self::GUARD_ADMIN)->check() && $request->routeIs('admin.*')){
             return redirect(RouteServiceProvider::ADMIN_HOME);
         }
 
