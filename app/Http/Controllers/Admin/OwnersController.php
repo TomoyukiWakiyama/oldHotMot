@@ -5,21 +5,28 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Owner;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 class OwnersController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function index()
     {
         //
-        dd('aaa');
+        $e_all = Owner::all();
+        $q_get = DB::table('owners')
+                ->select('name', 'created_at')
+                ->get();
+
+        return view('admin.owners.index',
+                compact('e_all', 'q_get'));
     }
 
     /**
