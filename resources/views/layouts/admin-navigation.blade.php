@@ -10,11 +10,19 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- **************************************************
+            　　　　　　 ナビゲーションリンク（フル）
+                *************************************************** -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('admin.owners.index')" :active="request()->routeIs('admin.owners.index')">
+                        オーナー情報
+                    </x-nav-link>
+
                 </div>
             </div>
 
@@ -60,11 +68,16 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    <!-- **************************************************
+            　　　　　　 ナビゲーションリンク（レスポンス）
+    *************************************************** -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.owners.index')" :active="request()->routeIs('admin.owners.index')">
+                オーナー情報
             </x-responsive-nav-link>
         </div>
 
