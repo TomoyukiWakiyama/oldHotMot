@@ -17,25 +17,32 @@
                         <button onclick="location.href='{{ route('admin.owners.create') }}'">新規登録</button>
                     </div>
                     <div>
-                            <table>
-                                <thead> <!-- table見出し -->
+                        <table>
+                            <thead> <!-- table見出し -->
+                                <tr>
+                                    <th>名前</th>
+                                    <th>メール</th>
+                                    <th>登録日</th>
+                                    <th>更新日</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($owners as $owner)
                                     <tr>
-                                        <th>名前</th>
-                                        <th>メール</th>
-                                        <th>登録日</th>
+                                        <td>{{$owner->name}}</td>
+                                        <td>{{$owner->email}}</td>
+                                        <td>{{$owner->created_at->diffForHumans()}}</td>
+                                        <td>{{$owner->updated_at->diffForHumans()}}</td>
+                                        <td><button type="button" onclick="location.href='{{ route('admin.owners.edit', ['owner' => $owner->id]) }}'" >更新</button></td>
+                                        <td>
+                                            
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($owners as $owner)
-                                        <tr>
-                                            <td>{{$owner->name}}</td>
-                                            <td>{{$owner->email}}</td>
-                                            <td>{{$owner->created_at->diffForHumans()}}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        
+                                @endforeach
+                            </tbody>
+                        </table>
+
                     </div>
 
                 </div>

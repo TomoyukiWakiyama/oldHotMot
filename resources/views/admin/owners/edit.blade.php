@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            新規登録
+            オーナー情報更新
         </h2>
     </x-slot>
 
@@ -24,33 +24,36 @@
                 　　　　　　 新規登録用フォーム
                     *************************************************** -->
                     <div>
-                        <form action="{{route('admin.owners.store')}}" method="post">
+                        <!-- owners/owner/edit のルートは 第2引数の'owner'で渡される  -->
+                        <form action="{{route('admin.owners.update', ['owner'=>$owner->id])}}" method="post">
+                            <!-- Resourcesの更新はputで用意される -->
+                            @method('PUT')
                             @csrf
                             <div> <!-- デザイン用でとりあえず囲っておく -->
                                 <!-- 名前 -->
                                 <div>
                                     <label for="name">名前</label>
-                                    <input type="text" name="name" id="name" required value="{{old('name')}}">
+                                    <input type="text" name="name" id="name" value="{{$owner->name}}">
                                 </div>
                                 <!-- メール -->
                                 <div>
                                     <label for="email">メールアドレス</label>
-                                    <input type="email" name="email" id="email" required value="{{old('email')}}">
+                                    <input type="email" name="email" id="email" value="{{$owner->email}}">
                                 </div>
                                 <!-- パスワード -->
                                 <div>
                                     <label for="password">パスワード</label>
-                                    <input type="password" name="password" id="password" required >
+                                    <input type="password" name="password" id="password" >
                                 </div>
                                 <!-- パスワード確認用 -->
                                 <div>
                                     <label for="password_confirmation">パスワード</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" required >
+                                    <input type="password" name="password_confirmation" id="password_confirmation" >
                                 </div>
                                 <div>
                                     <!-- 普通にbuttonを実行するとPOST送信してしまうので、type="button"をつける必要がある -->
                                     <button type="button" onclick="location.href='{{ route('admin.owners.index') }}'">戻る</button>
-                                    <button type="submit" >登録</button>
+                                    <button type="submit" >更新</button>
                                 </div>
                             </div>
                         </form>

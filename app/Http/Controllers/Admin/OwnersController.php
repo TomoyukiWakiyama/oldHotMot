@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-
-
-
 class OwnersController extends Controller
 {
     public function __construct()
@@ -25,30 +22,19 @@ class OwnersController extends Controller
     public function index()
     {
         //
-        $owners = Owner::select('name', 'email', 'created_at')
+        $owners = Owner::select('id', 'name', 'email', 'created_at', 'updated_at')
                     ->get();
 
         return view('admin.owners.index',
                 compact('owners'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
         return view('admin.owners.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
@@ -67,38 +53,51 @@ class OwnersController extends Controller
         return redirect()->route('admin.owners.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
+        $owner = Owner::findOrFail($id);
+        return view('admin.owners.edit',
+                compact('owner'));
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
+
+        $owner = Owner::findOrFail($id);
+
+        // Validate
+
+        // Update
+        if($request->name && $owner->name !== $request->name){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+            ]);
+            $owner->name = $request->name;
+        }
+        if($request->email && $owner->email !== $request->email){
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:owners'],
+            ]);
+            $owner->email = $request->email;
+        }
+        if($request->password){
+            $request->validate([
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+            $owner->password = Hash::make($request->password);
+        }
+        $owner->updated_at = Carbon::now();
+        $owner->save();
+
+        return redirect()->route('admin.owners.index');
     }
 
     /**
