@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Owner;
+use App\Models\Store;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\log;
 use Illuminate\Validation\Rules;
+use Throwable;
 
 class OwnersController extends Controller
 {
@@ -44,11 +47,29 @@ class OwnersController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        Owner::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        try{
+            DB::transaction(function () use($request) {
+                // Owner create
+                $owner = Owner::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
+
+                Store::create([
+                    'owner_id' => $owner->id,
+                    'name' => '店舗名_未設定',
+                    'information' => '店舗情報_未設定',
+                    'is_selling' => true,
+                ], 2);
+
+
+            });
+
+        }catch(Throwable $e){
+            Log::error($e);
+            throw $e;
+        }
 
         return redirect()->route('admin.owners.index');
     }

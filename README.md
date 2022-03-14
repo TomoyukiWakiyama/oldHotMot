@@ -1,5 +1,4 @@
-$this->call([
-    AdminSeeder::class,
-    OwnerSeeder::class,
-    StoreSeeder::class,
-]);
+$table->foreignId('owner_id')
+    ->constrained()
+    ->onUpdate('cascade')
+    ->onDelete('cascade');

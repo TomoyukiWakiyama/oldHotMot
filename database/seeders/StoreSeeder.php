@@ -34,6 +34,14 @@ class StoreSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'owner_id' => 3,
+                'name' => '波多江',
+                'information' => '波多江 information',
+                'is_selling' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
     }
 }

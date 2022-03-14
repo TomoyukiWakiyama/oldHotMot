@@ -15,7 +15,10 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_id')->constrained();
+            $table->foreignId('owner_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('name');
             $table->text('information');
             $table->boolean('is_selling');

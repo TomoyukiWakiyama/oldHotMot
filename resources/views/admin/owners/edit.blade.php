@@ -40,6 +40,16 @@
                                     <label for="email">メールアドレス</label>
                                     <input type="email" name="email" id="email" value="{{$owner->email}}">
                                 </div>
+                                <!-- 店舗名 -->
+                                <div>
+                                    <label for="store_name">店舗名</label>
+                                    <input type="text" name="store_name" id="store_name" value="{{$owner->store->name}}">
+                                </div>
+                                <!-- 店舗情報 -->
+                                <div>
+                                    <label for="store_information">店舗情報</label>
+                                    <textarea name="store_information" id="store_information">{{$owner->store->information}}</textarea>
+                                </div>
                                 <!-- パスワード -->
                                 <div>
                                     <label for="password">パスワード</label>
