@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            オーナー情報
+            削除済みオーナー
         </h2>
     </x-slot>
 
@@ -10,12 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- *************************************************
-                　　　　　　 コンテンツ部分
+                             コンテンツ部分
                     *************************************************** -->
-                    <!-- オーナー新規作成へ遷移 -->
-                    <div>
-                        <button onclick="location.href='{{ route('admin.owners.create') }}'">新規登録</button>
-                    </div>
+                    
                     <div>
                         <table>
                             <thead> <!-- table見出し -->
@@ -35,11 +32,9 @@
                                         <td>{{$owner->email}}</td>
                                         <td>{{$owner->created_at->diffForHumans()}}</td>
                                         <td>{{$owner->updated_at->diffForHumans()}}</td>
-                                        <td><button type="button" onclick="location.href='{{ route('admin.owners.edit', ['owner' => $owner->id]) }}'" >更新</button></td>
                                         <td>
-                                            <form action="{{route('admin.owners.destroy', ['owner'=>$owner->id])}}" method="POST">
+                                            <form method="post" action="{{ route('admin.canseled-owners.destroy', ['owner'=>$owner->id]) }}">                                            
                                                 @csrf
-                                                @method('delete')
                                                 <button type="submit">削除</button>
                                             </form>
                                         </td>

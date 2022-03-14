@@ -23,9 +23,6 @@ use App\Http\Controllers\Admin\OwnersController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('admin.welcome');
-// });
 
 /*********************************
 	dashboard
@@ -41,6 +38,18 @@ Route::get('/', function () {
 Route::resource('owners', OwnersController::class)
         ->middleware('auth:admin')
         ->except(['show']);
+        
+/*********************************
+	canceled-owners
+*********************************/
+Route::prefix('canceled-owners')
+        ->middleware('auth:admin')
+        ->group(function(){
+            Route::get('index', [OwnersController::class, 'canceledOwnerIndex'])
+                ->name('canceled-owners.index');
+            Route::post('destroy/{owner}', [OwnersController::class, 'canceledOwnerDestroy'])
+                ->name('canseled-owners.destroy');
+        });
 
 
 

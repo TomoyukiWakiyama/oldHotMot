@@ -100,14 +100,26 @@ class OwnersController extends Controller
         return redirect()->route('admin.owners.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+        Owner::findOrFail($id)->delete();
+        return redirect()->route('admin.owners.index');
     }
+
+    /*********************************
+        canceled-owners
+    *********************************/
+    public function canceledOwnerIndex()
+    {
+        $owners = Owner::onlyTrashed()->get();
+        return view('admin.owners.canceled-owners', compact('owners'));
+    }
+
+    public function canceledOwnerDestroy($id)
+    {
+        Owner::onlyTrashed()->findOrFail($id)->forceDelete();
+        return redirect()->route('admin.canceled-owners.index');
+    }
+
 }
