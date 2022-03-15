@@ -11,6 +11,7 @@ use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 
 use App\Http\Controllers\Owner\StoreController;
+use App\Http\Controllers\Owner\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,13 @@ Route::prefix('stores')
         Route::post('update/{store}', [StoreController::class, 'update'])
             ->name('stores.update');
     });
+
+/*********************************
+	menue.php
+*********************************/
+Route::resource('menus', MenuController::class)
+        ->middleware('auth:owners')
+        ->except(['show']);
 
 /*********************************
 	auth.php
