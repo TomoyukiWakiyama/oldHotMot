@@ -94,8 +94,6 @@ class OwnersController extends Controller
 
         $owner = Owner::findOrFail($id);
 
-        // Validate
-
         // Update
         if($request->name && $owner->name !== $request->name){
             $request->validate([

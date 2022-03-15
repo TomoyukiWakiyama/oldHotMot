@@ -10,6 +10,7 @@ use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 
+use App\Http\Controllers\Owner\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,24 @@ use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 |
 */
 
-Route::get('/', function () {
-    return view('owner.welcome');
-});
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owners'])->name('dashboard');
 
+/*********************************
+	store.php
+*********************************/
+Route::prefix('stores')
+    ->middleware('auth:owners')
+    ->group(function(){
+        Route::get('index', [StoreController::class, 'index'])
+            ->name('stores.index');
+        Route::get('edit/{store}', [StoreController::class, 'edit'])
+            ->name('stores.edit');
+        Route::post('update/{store}', [StoreController::class, 'update'])
+            ->name('stores.update');
+    });
 
 /*********************************
 	auth.php

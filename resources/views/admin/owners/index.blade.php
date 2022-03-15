@@ -16,6 +16,7 @@
                     <div>
                         <button onclick="location.href='{{ route('admin.owners.create') }}'">新規登録</button>
                     </div>
+                    <!-- オーナー一覧情報 -->
                     <div>
                         <table>
                             <thead> <!-- table見出し -->
