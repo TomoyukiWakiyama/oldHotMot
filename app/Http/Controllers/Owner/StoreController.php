@@ -50,6 +50,7 @@ class StoreController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $store = Store::findOrFail($id);
 
         $store->name = $request->name;
