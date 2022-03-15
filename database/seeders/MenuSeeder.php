@@ -45,6 +45,20 @@ class MenuSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'store_id' => 1,
+                'name' => 'から揚げ弁当',
+                'information' => 'から揚げ弁当 information',
+                'price' => 450,
+                'is_selling' => true,
+                'sort_order' => 3,
+                'category_id' => 1,
+                'new_item' => false,
+                'soon_over' => false,
+                'small_serving' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
     }
 }

@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
                         Home
                     </x-nav-link>
+                    <x-nav-link :href="route('owner.menus.index')" :active="request()->routeIs('owner.menus.index')">
+                        取り扱いメニュー
+                    </x-nav-link>
                     <x-nav-link :href="route('owner.stores.index')" :active="request()->routeIs('owner.stores.index')">
                         店舗情報
                     </x-nav-link>
@@ -68,6 +71,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
                 HOME
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('owner.menus.index')" :active="request()->routeIs('owner.menus.index')">
+                取り扱いメニュー
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('owner.stores.index')" :active="request()->routeIs('owner.stores.index')">
                 店舗情報

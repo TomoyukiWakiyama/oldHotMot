@@ -4,24 +4,48 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Menu;
+use App\Models\Store;
+use App\Models\Category;
+use App\Models\Owner;
+
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        // guard設定
+        $this->middleware('auth:owners');
+
+        // ログインオーナーチェック
+        $this->middleware(function ($request, $next){
+            $id = $request->route()->parameter('menu');
+            if(!is_null($id)){
+                $routeOwnerId = Menu::findOrFail($id)->store->owner_id;
+                $currentOwnerId = Auth::id();
+                if($routeOwnerId !== $currentOwnerId){
+                    abort(404);
+                }
+            }
+            return $next($request);
+        });
+
+    }
+
+
     public function index()
     {
         //
+        $owner_eager = Owner::with('store.menu.category')
+                    -> where('id', Auth::id())
+                    -> get();
+        
+        return view('owner.menus.index',
+                compact('owner_eager'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //

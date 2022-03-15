@@ -1,18 +1,10 @@
-Schema::create('menus', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('store_id')
-        ->constrained()
-        ->onUpdate('cascade')
-        ->onDelete('cascade');
-    $table->string('name');
-    $table->text('information');
-    $table->unsignedInteger('price');
-    $table->boolean('is_selling');
-    $table->integer('sort_order');
-    $table->foreignId('category_id')
-        ->constrained();
-    $table->boolean('new_item');
-    $table->boolean('soon_over');
-    $table->boolean('small_serving');
-    $table->timestamps();
-});
+@foreach ($owner_eager as $owner)
+    @foreach ($owner->store->menu as $menu)
+    <tr>
+        <td>{{$menu->name}}</td>
+        <td>{{$menu->information}}</td>
+        <td>{{$menu->price}}</td>
+        <td>{{$menu->category->name}}</td>
+    </tr>
+    @endforeach
+@endforeach
