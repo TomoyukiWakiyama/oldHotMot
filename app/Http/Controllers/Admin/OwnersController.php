@@ -61,10 +61,21 @@ class OwnersController extends Controller
                     'name' => '店舗名_未設定',
                     'information' => '店舗情報_未設定',
                     'is_selling' => true,
-                ], 2);
+                ]);
 
+                // 1. foundationMenuとかいう初期メニューを登録したデータをモデルで作成する
+                //    これはadminしか追加編集できない
+                // 2. $foundationMenus = foundationMenu::all()
+                //    foreach($foundationMenus as menu)
+                // Menu::create([
+                    // 'name' => $menu -> name, ...
+                // ]);
+                //    endforeach;
+                // とかでできればいいけど、createをループしているから連続動作でバグったら嫌
+                // 本当はまとめてデータを投入したいけどやり方がわからない
+                // ユーザーからの入力の可能性がないなど、上記デメリットを無視できる場合はinsert使用した方がよい場合もある。
 
-            });
+            }, 2);
 
         }catch(Throwable $e){
             Log::error($e);

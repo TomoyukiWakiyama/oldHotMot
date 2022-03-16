@@ -11,6 +11,21 @@ class Menu extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'store_id',
+        'name',
+        'information',
+        'price',
+        'is_selling',
+        'sort_order',
+        'category_id',
+        'new_item',
+        'soon_over',
+        'small_serving',
+    ];
+
+    
+
     public function store()
     {
         return $this->belongsTo(Store::class);

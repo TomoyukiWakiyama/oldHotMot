@@ -41,7 +41,7 @@ class MenuController extends Controller
         $owner_eager = Owner::with('store.menu.category')
                     -> where('id', Auth::id())
                     -> get();
-        
+
         return view('owner.menus.index',
                 compact('owner_eager'));
     }
@@ -50,36 +50,55 @@ class MenuController extends Controller
     {
         //
         // 店舗情報を取得する
-        $stores = Store::where('owner_id', Auth::id())
+        $store = Store::where('owner_id', Auth::id())
                 ->select('id', 'name')
-                ->get();
+                ->first();
+
         // カテゴリー情報を取得する
         $categories = Category::select('id', 'name')
                     ->get();
         
         return view('owner.menus.create',
-            compact('stores', 'categories'));
+            compact('store', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
+        // validate
+        $request->validate([
+            'name' => ['required', 'string', 'max:50', 'unique:menus'],
+            'information' => ['required', 'string', 'max:500'],
+            'price' => ['required', 'integer'],
+            'is_selling' => ['required'], // boolean
+            'sort_order' => ['integer', 'nullable'],
+            'category' => ['required', 'exists:categories,id'],
+            'new_item' => ['required'], // boolean
+            'soon_over' => ['required'], // boolean
+            'small_serving' => ['required'], // boolean
+        ]);
+
+        // ログインしているオーナーidから、そのオーナーの店舗を調べる
+        $store = Store::where('owner_id', Auth::id())
+                ->select('id')
+                ->first();
+
+        Menu::create([
+            'store_id' => $store->id,
+            'name' => $request->name,
+            'information' => $request->information,
+            'price' => $request->price,
+            'is_selling' => $request->is_selling,
+            'sort_order' => $request->sort_order,
+            'category_id' => $request->category,
+            'new_item' => $request->new_item,
+            'soon_over' => $request->soon_over,
+            'small_serving' => $request->small_serving,
+        ]);
         
-        dd($request->category);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

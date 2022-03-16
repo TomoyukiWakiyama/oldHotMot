@@ -1,10 +1,12 @@
-@foreach ($owner_eager as $owner)
-    @foreach ($owner->store->menu as $menu)
-    <tr>
-        <td>{{$menu->name}}</td>
-        <td>{{$menu->information}}</td>
-        <td>{{$menu->price}}</td>
-        <td>{{$menu->category->name}}</td>
-    </tr>
-    @endforeach
-@endforeach
+Menu::create([
+    'store_id' => $store->id,
+    'name' => $request->name,
+    'information' => $request->information,
+    'price' => $request->price,
+    'is_selling' => $request->is_selling,
+    'sort_order' => $request->sort_order,
+    'category_id' => $request->category,
+    'new_item' => $request->new_item,
+    'soon_over' => $request->soon_over,
+    'small_serving' => $request->small_serving,
+]);

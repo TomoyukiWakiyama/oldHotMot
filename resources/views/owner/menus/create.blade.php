@@ -25,9 +25,7 @@
                     <div>
                         <!-- 店舗名 -->
                         <div>
-                            @foreach ($stores as $store)
-                                <h2>{{$store->name}}店</h2>
-                            @endforeach
+                            <h2>{{$store->name}}店</h2>
                         </div>
                         <!-- *************************************************
                         　　　　　　 新規登録用フォーム
@@ -43,7 +41,7 @@
                                 <!-- 商品情報 -->
                                 <div>
                                     <label for="information">商品情報</label>
-                                    <textarea name="information" id="infor" required>{{old('information')}}</textarea>
+                                    <textarea name="information" id="information" required>{{old('information')}}</textarea>
                                 </div>
                                 <!-- 値段 -->
                                 <div>
@@ -74,23 +72,29 @@
 
                                 <!-- 新商品 -->
                                 <div>
-                                    <label for="new_item">新商品</label>
-                                    <input type="checkbox" name="new_item" id="new_item" value="1">
+                                    <label for="new_item_1">新商品</label>
+                                    <input type="radio" name="new_item" id="new_item_1" value="1" required >
+                                    <label for="new_item_0">未設定</label>
+                                    <input type="radio" name="new_item" id="new_item_0" value="0" required checked >
                                 </div>
 
                                 <!-- もうすぐ終了 -->
                                 <div>
-                                    <label for="soon_over">もうすぐ終了</label>
-                                    <input type="checkbox" name="soon_over" id="soon_over" value="1">
+                                    <label for="soon_over_1">もうすぐ終了</label>
+                                    <input type="radio" name="soon_over" id="soon_over_1" value="1" required >
+                                    <label for="soon_over_0">未設定</label>
+                                    <input type="radio" name="soon_over" id="soon_over_0" value="0" required checked >
                                 </div>
 
                                 <!-- 小盛りOK -->
                                 <div>
-                                    <label for="small_serving">小盛りOK</label>
-                                    <input type="checkbox" name="small_serving" id="small_serving" value="1">
+                                    <label for="small_serving_1">小盛りOK</label>
+                                    <input type="radio" name="small_serving" id="small_serving_1" value="1" required >
+                                    <label for="small_serving_0">未設定</label>
+                                    <input type="radio" name="small_serving" id="small_serving_0" value="0" required checked >
                                 </div>
 
-                                <!-- 小盛りOK -->
+                                <!-- button -->
                                 <div>
                                     <!-- 普通にbuttonを実行するとPOST送信してしまうので、type="button"をつける必要がある -->
                                     <button type="button" onclick="location.href='{{ route('owner.menus.index') }}'">戻る</button>
@@ -98,7 +102,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> <!-- デザイン用でとりあえず囲っておく -->
 
                 </div>
             </div>
