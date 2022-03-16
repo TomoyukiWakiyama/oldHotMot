@@ -15,6 +15,9 @@
 
                     <!-- 店舗情報表示 -->
                     <div>
+                        <div>
+                            <button onclick="location.href='{{route('owner.menus.create')}}'">メニューを追加する</button>
+                        </div>
                         <table>
                             <thead>
                                 <tr>

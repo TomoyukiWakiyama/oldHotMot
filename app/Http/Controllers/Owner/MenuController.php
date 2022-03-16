@@ -49,6 +49,16 @@ class MenuController extends Controller
     public function create()
     {
         //
+        // 店舗情報を取得する
+        $stores = Store::where('owner_id', Auth::id())
+                ->select('id', 'name')
+                ->get();
+        // カテゴリー情報を取得する
+        $categories = Category::select('id', 'name')
+                    ->get();
+        
+        return view('owner.menus.create',
+            compact('stores', 'categories'));
     }
 
     /**
@@ -60,6 +70,8 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         //
+        
+        dd($request->category);
     }
 
     /**

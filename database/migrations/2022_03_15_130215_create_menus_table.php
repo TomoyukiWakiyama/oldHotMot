@@ -23,7 +23,8 @@ class CreateMenusTable extends Migration
             $table->text('information');
             $table->unsignedInteger('price');
             $table->boolean('is_selling');
-            $table->integer('sort_order');
+            $table->integer('sort_order')
+                ->nullable();
             $table->foreignId('category_id')
                 ->constrained();
             $table->boolean('new_item');
