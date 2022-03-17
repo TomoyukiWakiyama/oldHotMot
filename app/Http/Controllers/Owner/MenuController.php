@@ -154,5 +154,7 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
+        Menu::findOrFail($id)->delete();
+        return redirect()->route('owner.menus.index');
     }
 }

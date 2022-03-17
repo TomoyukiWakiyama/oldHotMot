@@ -36,6 +36,13 @@
                                         <td>{{$menu->price}}</td>
                                         <td>{{$menu->category->name}}</td>
                                         <td><button type="button" onclick="location.href='{{ route('owner.menus.edit', ['menu' => $menu->id]) }}'" >変更</button></td>
+                                        <td>
+                                            <form action="{{route('owner.menus.destroy', ['menu'=>$menu->id])}}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit">削除</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 @endforeach

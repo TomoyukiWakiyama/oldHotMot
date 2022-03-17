@@ -30,6 +30,7 @@ class CreateMenusTable extends Migration
             $table->boolean('new_item');
             $table->boolean('soon_over');
             $table->boolean('small_serving');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
