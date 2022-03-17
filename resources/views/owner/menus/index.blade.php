@@ -35,6 +35,7 @@
                                         <td>{{$menu->information}}</td>
                                         <td>{{$menu->price}}</td>
                                         <td>{{$menu->category->name}}</td>
+                                        <td><button type="button" onclick="location.href='{{ route('owner.menus.edit', ['menu' => $menu->id]) }}'" >変更</button></td>
                                     </tr>
                                     @endforeach
                                 @endforeach

@@ -96,35 +96,36 @@ class MenuController extends Controller
             'soon_over' => $request->soon_over,
             'small_serving' => $request->small_serving,
         ]);
-        
+
+        return redirect()->route('owner.menus.index');
+
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
+        $menu = Menu::findOrFail($id);
+
+        // カテゴリー情報を取得する
+        $categories = Category::select('id', 'name')
+                    ->get();
+
+        return view('owner.menus.edit', compact('menu', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
+        $menu = Menu::findOrFail($id);
+        $menu->name = $request->name;
+        $menu->information = $request->information;
+        $menu->price = $request->price;
+        $menu->is_selling = $request->is_selling;
+        $menu->sort_order = $request->sort_order;
+        $menu->category_id = $request->category;
+        $menu->new_item = $request->new_item;
+        $menu->soon_over = $request->soon_over;
+        $menu->small_serving = $request->small_serving;
     }
 
     /**
