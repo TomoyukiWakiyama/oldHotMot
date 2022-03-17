@@ -27,7 +27,7 @@
                         　　　　　　 新規登録用フォーム
                         *************************************************** -->
                         <form action="{{route('owner.menus.update', ['menu'=>$menu->id])}}" method="post">
-                            @method('patch')
+                            @method('put')
                             @csrf
                             <div> <!-- デザイン用でとりあえず囲っておく -->
                                 <!-- 商品名 -->
@@ -43,7 +43,7 @@
                                 <!-- 値段 -->
                                 <div>
                                     <label for="price">値段</label>
-                                    <input type="number" name="price" id="price" min="0" max="10000" required value="{{$menu->price}}">
+                                    <input type="number" name="price" id="price" required value="{{$menu->price}}">
                                 </div>
                                 <!-- 販売状況 -->
                                 <div>

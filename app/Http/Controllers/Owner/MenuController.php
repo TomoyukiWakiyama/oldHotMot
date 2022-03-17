@@ -105,7 +105,6 @@ class MenuController extends Controller
     {
         //
         $menu = Menu::findOrFail($id);
-
         // カテゴリー情報を取得する
         $categories = Category::select('id', 'name')
                     ->get();
@@ -116,7 +115,22 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // validate
+        $request->validate([
+            'name' => ['required', 'string', 'max:50'],
+            'information' => ['required', 'string', 'max:500'],
+            'price' => ['required', 'integer', 'max:10000',],
+            'is_selling' => ['required', 'boolean'], // boolean
+            'sort_order' => ['integer', 'max:100', 'nullable'],
+            'category' => ['required', 'exists:categories,id'],
+            'new_item' => ['required', 'boolean'], // boolean
+            'soon_over' => ['required', 'boolean'], // boolean
+            'small_serving' => ['required', 'boolean'], // boolean
+        ]);
+
+        // idからmenuを検索する
         $menu = Menu::findOrFail($id);
+
         $menu->name = $request->name;
         $menu->information = $request->information;
         $menu->price = $request->price;
@@ -126,6 +140,9 @@ class MenuController extends Controller
         $menu->new_item = $request->new_item;
         $menu->soon_over = $request->soon_over;
         $menu->small_serving = $request->small_serving;
+        $menu->save();
+
+        return redirect()->route('owner.menus.index');
     }
 
     /**
